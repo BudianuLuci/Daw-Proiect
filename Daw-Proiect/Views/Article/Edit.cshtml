@@ -1,0 +1,87 @@
+﻿@model Daw_Proiect.Models.Article
+@{
+    ViewBag.Titlu = "Editare Produs";
+}
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Article"))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    <label>Status APROBARE</label>
+    if (@Model.Approved == 0)
+    {
+        <h2 class="neaprobat" style="color:red;">NEAPROBAT</h2>
+        <label>Pentru aprobare scrieti 1:</label>
+        @Html.Editor("Approved")
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+        <br /><br />
+    }
+    else
+    {
+        <h2 class="aprobat" style="color:green;">APROBAT</h2>
+    }
+
+
+    @Html.HiddenFor(m => m.Id)
+
+    @Html.Label("Title", "Numele produsului")
+    <br />
+    @Html.Editor("Title")
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Description", "Descrierea produsului")
+    <br />
+    @Html.EditorFor(m => m.Description)
+    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Pret", "Pretul produsului")
+    <br />
+    @Html.Editor("Pret")
+    @Html.ValidationMessage("Pret", "", new { @class = "text-danger" })
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId,
+        new SelectList(Model.Categories, "Value", "Text"),
+        "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    <label>Imagine Actuala:</label>
+    <img src="@Model.ImageURL" style="max-width:10vw" />
+    <br /> <br />
+    @Html.Label("ImageURL", "Link Imagine")
+    <br />
+    @Html.Editor("ImageURL")
+    @Html.ValidationMessage("ImageURL", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Rating", "Ratingul produsului")
+    <br />
+    @Html.Editor("Rating")
+    @Html.ValidationMessage("Rating", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Review", "Review-ul produsului")
+    <br />
+    @Html.Editor("Review")
+    @Html.ValidationMessage("Review", "", new { @class = "text-danger" })
+    <br /><br />
+    <br />
+    <button class="btn btn-sm btn-success" type="submit">Modifica produsul</button>
+}
+<form method="post" action="/Article/Delete/@Model.Id">
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <br />
+    <button class="btn btn-success" type="submit">Sterge articol</button>
+</form>
+<br />
+<hr />
+<a class="btn btn-success" href="/Article/Index">Inapoi la articole</a>
+<br /><br />
+<a class="btn btn-info" href="/Article/New">Adauga articol</a>
+<br />

@@ -1,0 +1,17 @@
+﻿@model Daw_Proiect.Models.Article
+
+
+<div class="panel-heading">@Model.Title</div>
+<div class="panel-body">
+    <div class="col-md-3 row-style">
+        <a href="/Article/Show/@Model.Id"> <img class="card-img-top" src="@Model.ImageURL" alt="image cap" ></a>
+        <div class="card-body">
+            <h3 class="card-title">@Model.Title</h3>
+            <i class="glyphicon glyphicon-user"></i>
+            <strong> @Model.UserId</strong>
+        </div>
+        <br />
+    </div>
+    <a class="btn btn-success" href="/Article/Show/@Model.Id" style=" display: inline-flex; float: left; height:35px;">Afisare produs</a>
+    <a class="btn btn-success" href="/Article/Edit/@Model.CategoryId" style=" height:35px;">Editare produs</a>
+</div>

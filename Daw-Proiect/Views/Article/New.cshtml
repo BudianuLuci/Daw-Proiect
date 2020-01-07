@@ -1,0 +1,58 @@
+﻿@model Daw_Proiect.Models.Article
+
+@{
+    ViewBag.Titlu = "Adaugare produs";
+}
+<h2>@ViewBag.Titlu</h2>
+<br />
+
+<form method="post" action="/Article/New">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.UserId)
+    @Html.HiddenFor(m => m.Approved)
+    @Html.Label("Title", "Titlul produsului")
+    <br />
+    @Html.TextBox("Title", "", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Description", "Descrierea produsului")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Pret", "Pretul produsului")
+    <br />
+    @Html.TextArea("Pret", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Pret", "", new { @class = "text-danger" })
+    <br /><br />
+
+    <label>Selectati categoria</label>
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categories, "Value", "Text"),
+            "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("ImageURL", "Link catre Imagine")
+    <br />
+    @Html.TextBox("ImageURL", null, new { @class = "form-control" })
+    @Html.ValidationMessage("ImageURL", "", new { @class = "text-danger" })
+    <br /><br />
+
+
+    @Html.Label("Rating", "Rating-ul produsului")
+    <br />
+    @Html.TextBox("Rating", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Rating", "", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("Review", "Un Review al produsului")
+    <br />
+    @Html.TextBox("Review", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Review", "", new { @class = "text-danger" })
+    <br /><br />
+
+    <button class="btn btn-success" type="submit">Adaugare Produs</button>
+</form>

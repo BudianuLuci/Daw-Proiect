@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Homepage";
+}
+<h2>@ViewBag.Title</h2>
+
+
+<hr />
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+}
+@if (ViewBag.esteAdmin)
+{
+    <h4 style="color:green;">APPROVED</h4>
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            @foreach (Daw_Proiect.Models.Article art in ViewBag.Articles)
+            {
+                if (@art.Approved != 0)
+                {
+                    <div class="card" style=" display:inline-block; margin-left:50px;">
+                        <div class="c">
+                            <a href="/Article/Show/@art.Id"> <img class="card-img-top" src="@art.ImageURL" alt="image cap" width="300px" height="300px"></a>
+                            <br />
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <a class="btn btn-success" href="/Article/Show/@art.Id" style="display: inline-block !important;">Afisare produs</a>
+                                    @if (ViewBag.afisareButoane == true && art.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                                    {
+                                        <a class="btn btn-success" href="/Article/Edit/@art.Id" style="display: inline-block !important; text-align:center;">Editare produs</a>
+                                    }
+                                </div>
+                                <h3 class="card-title">@art.Title</h3>
+                                <i class="glyphicon glyphicon-globe"></i>
+                                <strong>@art.Category.CategoryName</strong>
+                                <br />
+                                <i class="glyphicon glyphicon-user"></i>
+                                <strong> @art.User.Email</strong>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.esteColaborator)
+{
+    <h2 style="color:darkred;">OWN PRRODUCTS WAITING FOR APPROVAL</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                @foreach (Daw_Proiect.Models.Article art in ViewBag.Articles)
+                {
+                    if (@art.Approved == 0 && art.UserId == ViewBag.utilizatorCurent)
+                    {
+                        <div class="card" style=" display:inline-block; margin-left:50px;">
+                            <div class="c">
+                                <a href="/Article/Show/@art.Id"> <img class="card-img-top" src="@art.ImageURL" alt="image cap" width="300px" height="300px"></a>
+                                <br />
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        <a class="btn btn-success" href="/Article/Show/@art.Id" style="display: inline-block !important;">Afisare produs</a>
+                                        @if (ViewBag.afisareButoane == true && art.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                                        {
+                                            <a class="btn btn-success" href="/Article/Edit/@art.Id" style="display: inline-block !important; text-align:center;">Editare produs</a>
+                                        }
+                                    </div>
+                                    <h3 class="card-title">@art.Title</h3>
+                                    <i class="glyphicon glyphicon-globe"></i>
+                                    <strong>@art.Category.CategoryName</strong>
+                                    <br />
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <strong> @art.User.Email</strong>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.esteAdmin)
+{
+    <h4 style="color:darkred;">WAITING FOR APPROVAL</h4>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                @foreach (Daw_Proiect.Models.Article art in ViewBag.Articles)
+                {
+                    if (@art.Approved == 0)
+                    {
+                        <div class="card" style=" display:inline-block; margin-left:50px;">
+                            <div class="c">
+                                <a href="/Article/Show/@art.Id"> <img class="card-img-top" src="@art.ImageURL" alt="image cap" width="300px" height="300px"></a>
+                                <br />
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        <a class="btn btn-success" href="/Article/Show/@art.Id" style="display: inline-block !important;">Afisare produs</a>
+                                        @if (ViewBag.afisareButoane == true && art.UserId == ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+                                        {
+                                            <a class="btn btn-success" href="/Article/Edit/@art.Id" style="display: inline-block !important; text-align:center;">Editare produs</a>
+                                        }
+                                    </div>
+                                    <h3 class="card-title">@art.Title</h3>
+                                    <i class="glyphicon glyphicon-globe"></i>
+                                    <strong>@art.Category.CategoryName</strong>
+                                    <br />
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    <strong> @art.User.Email</strong>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+<br />
+<a class="btn btn-success" href="/Category/Index">Afisare lista categorii</a>
+<br />
+<br />
+@if (ViewBag.afisareButoane == true || ViewBag.esteAdmin || ViewBag.esteColaborator)
+{
+    <a class="btn btn-info" href="/Article/New">Adauga articol</a>
+    <br />
+}

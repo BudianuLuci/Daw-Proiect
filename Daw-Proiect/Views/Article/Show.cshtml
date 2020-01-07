@@ -1,0 +1,54 @@
+﻿@model Daw_Proiect.Models.Article
+
+@{
+    ViewBag.Title = "Afisare Produs";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="panel panel-default">
+    <div class="panel-heading">@Model.Title</div>
+    <div class="panel-body" style="display: flex">
+
+        <img src="@Model.ImageURL" style="max-width:50vw" />
+        <div style="padding-left:1vw">
+            <h3><strong>@Model.Pret Lei</strong></h3>
+            <h3>Rating: @Model.Rating / 5</h3>
+            <h2>Description</h2>
+            <p>@Model.Description</p>a
+
+            <h4>Cel mai folositor review: @Model.Review</h4>
+            <i class="glyphicon glyphicon-globe"></i>
+            <h6>Categoria produsului: @Model.Category.CategoryName</h6>
+            <i class="glyphicon glyphicon-user"></i>
+            <strong> @Model.User.Email</strong>
+        </div>
+
+    </div>
+    @if (ViewBag.afisareButoane == true && Model.UserId ==
+ViewBag.utilizatorCurent || ViewBag.esteAdmin)
+    {
+        <div class="panel-footer">
+            <a class="btn btn-success" href="/Article/Edit/@Model.Id">
+                Modifica articol
+            </a>
+            <br />
+            <form method="post" action="/Article/Delete/@Model.Id">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <br />
+                <button class="btn btn-success" type="submit">Sterge articol</button>
+            </form>
+        </div>
+    }
+
+</div>
+
+<br />
+<a class="btn btn-success" href="/Article/Index">Inapoi la articole</a>
+<br /><br />
+@if (ViewBag.afisareButoane == true || ViewBag.esteColaborator || ViewBag.esteAdmin)
+{
+    <a class="btn btn-info" href="/Article/New">Adauga articol</a>
+    <br />
+}
+    <br />
